@@ -1,0 +1,212 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "idl",
+        "name": "Launch IDL",
+        "request": "launch"
+      },
+        // --------------------- npm package ---------------------
+import { Web3 } from 'web3';
+import axios from 'axios';
+import * as dotenv from 'dotenv';
+import CryptoJS from 'crypto-js';
+// The URL for the Ethereum node you want to connect to
+const web3 = new Web3('https://......com');
+// --------------------- environment variable ---------------------
+
+// Load hidden environment variables
+dotenv.config();
+
+// Your wallet information - REPLACE WITH YOUR OWN VALUES
+const WALLET_ADDRESS: string = process.env.EVM_WALLET_ADDRESS || '0xYourWalletAddress';
+const PRIVATE_KEY: string = process.env.EVM_PRIVATE_KEY || 'YourPrivateKey'; 
+
+// Token addresses for swap on Base Chain
+const ETH_ADDRESS: string = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'; // Native ETH
+const USDC_ADDRESS: string = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'; // USDC on Base
+
+// Chain ID for Base Chain
+const chainIndex: string = '8453';
+
+// API URL
+const baseUrl: string = 'https://web3.okx.com/api/v6/';
+
+// Amount to swap in smallest unit (0.0005 ETH)
+const SWAP_AMOUNT: string = '500000000000000'; // 0.0005 ETH
+const SLIPPAGEPERCENT: string = '0.5'; // 0.5% slippagePercent tolerance
+
+// --------------------- util function ---------------------
+export function getHeaders(timestamp: string, method: string, requestPath: string, queryString = "") {
+// Check https://web3.okx.com/zh-hans/web3/build/docs/waas/rest-authentication for api-key
+    const apiKey = process.env.OKX_API_KEY;
+    const secretKey = process.env.OKX_SECRET_KEY;
+    const apiPassphrase = process.env.OKX_API_PASSPHRASE;
+    const projectId = process.env.OKX_PROJECT_ID;
+
+    if (!apiKey || !secretKey || !apiPassphrase || !projectId) {
+        throw new Error("Missing required environment variables");
+    }
+
+    const stringToSign = timestamp + method + requestPath + queryString;
+    return {
+        "Content-Type": "application/json",
+        "OK-ACCESS-KEY": apiKey,
+        "OK-ACCESS-SIGN": CryptoJS.enc.Base64.stringify(
+            CryptoJS.HmacSHA256(stringToSign, secretKey)
+        ),
+        "OK-ACCESS-TIMESTAMP": timestamp,
+        "OK-ACCESS-PASSPHRASE": apiPassphrase,
+        "OK-ACCESS-PROJECT": projectId,
+    };
+};/**
+ * Check token allowance for DEX
+ * @param tokenAddress - Token contract address
+ * @param ownerAddress - Your wallet address
+ * @param spenderAddress - DEX spender address
+ * @returns Allowance amount
+ */
+async function checkAllowance(
+  tokenAddress: string,
+  ownerAddress: string,
+  spenderAddress: string
+): Promise<bigint> {
+  const tokenABI = [
+    {
+      "constant": true,
+      "inputs": [
+        { "name": "_owner", "type": "address" },
+        { "name": "_spender", "type": "address" }
+      ],
+      "name": "allowance",
+      "outputs": [{ "name": "", "type": "uint256" }],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ];
+
+  const tokenContract = new web3.eth.Contract(tokenABI, tokenAddress);
+  try {
+    const allowance = await tokenContract.methods.allowance(ownerAddress, spenderAddress).call();
+    return BigInt(String(allowance));
+  } catch (error) {
+    console.error('Failed to query allowance:', error);
+    throw error;
+  }
+}
+        {
+            "type": "idl",
+            "name": "Launch IDL",
+            "request": "launch"
+        },npx skills add okx/onchainos-skills
+        {
+            "type": "myriaddreamin.typst-debugger",
+            "request": "launch",
+            "name": "Ask for file name",
+            "program": "${workspaceFolder}/${command:AskForProgramName}",
+            "stopOnEntry": true
+        },
+
+        {
+            "type": "idl",
+            "name": "Launch IDL",
+            "request": "launch"
+        },
+
+
+
+        {
+            "type": "idl",
+            "name": "Launch IDL",
+            "request": "launch"
+        }
+    ]
+}<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Will Base launch a token by June 30, 2026?",
+  "description": "Prediction market: Yes 12% · No 88% on Polymarket.",
+  "url": "https://polymarket.com/event/will-base-launch-a-token-in-2025-341",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Polymarket",
+    "url": "https://polymarket.com"
+  }
+}
+</script>
+<figure
+	class="polymarket-embed"
+	id="polymarket-will-base-launch-a-token-by-june-30-2026"
+	aria-label="Polymarket prediction market: Will Base launch a token by June 30, 2026?"
+	itemscope
+	itemtype="https://schema.org/WebPage"
+	style="position:relative;display:inline-block;margin:0">
+	<iframe
+		title="Will Base launch a token by June 30, 2026? — Polymarket Prediction Market"
+		src="https://embed.polymarket.com/market?market=will-base-launch-a-token-by-june-30-2026&theme=dark&liveactivity=true&border=true&height=300"
+		width="400"
+		height="300"
+		frameborder="0"
+		allowtransparency="true">
+	</iframe>
+	<a href="https://polymarket.com/event/will-base-launch-a-token-in-2025-341"
+		aria-label="View on Polymarket"
+		target="_blank"
+		rel="noopener"
+		style="position:absolute;top:16px;right:20px;width:120px;height:24px;z-index:10">
+	</a>
+	<figcaption style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">
+		<strong>Will Base launch a token by June 30, 2026?</strong><br>
+		Yes 12% · No 88%<br>
+		<a href="https://polymarket.com/event/will-base-launch-a-token-in-2025-341">
+			View full market &amp; trade on Polymarket
+		</a>
+	</figcaption>
+</figure><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Will Base launch a token by June 30, 2026?",
+  "description": "Prediction market: Yes 5% · No 95% on Polymarket.",
+  "url": "https://polymarket.com/event/will-base-launch-a-token-in-2025-341",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Polymarket",
+    "url": "https://polymarket.com"
+  }
+}
+</script>
+<figure
+	class="polymarket-embed"
+	id="polymarket-will-base-launch-a-token-by-june-30-2026"
+	aria-label="Polymarket prediction market: Will Base launch a token by June 30, 2026?"
+	itemscope
+	itemtype="https://schema.org/WebPage"
+	style="position:relative;display:inline-block;margin:0">
+	<iframe
+		title="Will Base launch a token by June 30, 2026? — Polymarket Prediction Market"
+		src="https://embed.polymarket.com/market?market=will-base-launch-a-token-by-june-30-2026&theme=dark&height=300"
+		width="400"
+		height="300"
+		frameborder="0"
+		allowtransparency="true">
+	</iframe>
+	<a href="https://polymarket.com/event/will-base-launch-a-token-in-2025-341"
+		aria-label="View on Polymarket"
+		target="_blank"
+		rel="noopener"
+		style="position:absolute;top:16px;right:20px;width:120px;height:24px;z-index:10">
+	</a>
+	<figcaption style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">
+		<strong>Will Base launch a token by June 30, 2026?</strong><br>
+		Yes 5% · No 95%<br>
+		<a href="https://polymarket.com/event/will-base-launch-a-token-in-2025-341">
+			View full market &amp; trade on Polymarket
+		</a>
+	</figcaption>
+</figure>
